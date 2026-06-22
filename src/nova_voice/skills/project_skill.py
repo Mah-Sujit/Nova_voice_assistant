@@ -4,9 +4,13 @@ Creates starter project structures.
 """
 
 from pathlib import Path
+from nova_voice.core.memory import MemoryManager
 
 
 class ProjectSkill:
+
+    def __init__(self):
+        self.memory = MemoryManager()
 
     def handle(self, command: str) -> str:
 
@@ -36,6 +40,11 @@ class ProjectSkill:
         Path(f"{project_name}/README.md").touch()
         Path(f"{project_name}/requirements.txt").touch()
         Path(f"{project_name}/.gitignore").touch()
+
+        # Save to memory
+        self.memory.remember("last_project", project_name)
+        self.memory.remember("favorite_framework", "Python")
+        self.memory.remember("last_command", "create python project")
 
         return f"Python project '{project_name}' created successfully."
 
@@ -71,4 +80,18 @@ def home():
 
         Path(f"{project_name}/README.md").touch()
 
+        # Save to memory
+        self.memory.remember("last_project", project_name)
+        self.memory.remember("favorite_framework", "FastAPI")
+        self.memory.remember("last_command", "create fastapi project")
+
         return f"FastAPI project '{project_name}' created successfully."
+
+    def get_last_project(self):
+
+        project = self.memory.recall("last_project")
+
+        if project:
+            return f"Last project: {project}"
+
+        return "No project found in memory."

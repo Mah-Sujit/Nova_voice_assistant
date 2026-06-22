@@ -8,6 +8,7 @@ from pathlib import Path
 
 
 class MemoryManager:
+
     def __init__(self):
         self.memory_file = Path("src/nova_voice/data/memory.json")
 
@@ -15,8 +16,13 @@ class MemoryManager:
         if not self.memory_file.exists():
             return {}
 
-        with open(self.memory_file, "r", encoding="utf-8") as file:
-            return json.load(file)
+        try:
+            with open(self.memory_file, "r", encoding="utf-8") as file:
+                return json.load(file)
+
+        except json.JSONDecodeError:
+            print("Warning: memory.json corrupted. Resetting memory.")
+            return {}
 
     def save_memory(self, data):
         self.memory_file.parent.mkdir(parents=True, exist_ok=True)

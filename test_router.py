@@ -48,3 +48,10 @@ print(router.route("deploy check"))
 
 print("\n=== AI CHAT ===")
 print(router.route("ask ai explain what Git is in simple terms"))
+
+print("\n=== MEMORY ===")
+print(router.route("show last project"))
+
+print(router.route("show favorite framework"))
+
+print(router.route("recall memory"))

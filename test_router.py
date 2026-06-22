@@ -47,4 +47,4 @@ print(router.route("deploy check"))
 
 
 print("\n=== AI CHAT ===")
-print(router.route("ask ai explain Python ModuleNotFoundError in simple terms"))
+print(router.route("ask ai explain what Git is in simple terms"))

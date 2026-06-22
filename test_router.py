@@ -34,3 +34,10 @@ print(router.route("show commits"))
 
 print("\n=== TESTS ===")
 print(router.route("run tests"))
+
+
+print("\n=== PROJECT ===")
+print(router.route("create python project"))
+
+print("\n=== FASTAPI PROJECT ===")
+print(router.route("create fastapi project"))

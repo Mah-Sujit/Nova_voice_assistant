@@ -25,7 +25,7 @@ class IntentRouter:
         if "git" in command or "commit" in command or "push" in command or "status" in command:
             return self.git_skill.handle(command)
 
-        elif "create project" in command:
+        elif "create" in command and "project" in command:
             return self.project_skill.handle(command)
 
         elif "run tests" in command:

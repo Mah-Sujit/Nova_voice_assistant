@@ -10,6 +10,7 @@ from nova_voice.skills.debug_skill import DebugSkill
 from nova_voice.skills.terminal_skill import TerminalSkill
 from nova_voice.skills.code_review_skill import CodeReviewSkill
 from nova_voice.skills.deploy_skill import DeploySkill
+from nova_voice.skills.ai_chat_skill import AIChatSkill
 
 class IntentRouter:
     def __init__(self):
@@ -20,6 +21,7 @@ class IntentRouter:
         self.terminal_skill = TerminalSkill()
         self.code_review_skill = CodeReviewSkill()
         self.deploy_skill = DeploySkill()
+        self.ai_chat_skill = AIChatSkill()
 
     def route(self, command: str):
         command = command.lower()
@@ -46,5 +48,8 @@ class IntentRouter:
         
         elif "deploy" in command:
             return self.deploy_skill.handle(command)
+        
+        elif "ask ai" in command or command.startswith("ai "):
+            return self.ai_chat_skill.handle(command)
            
             return "Sorry, I don't understand that command yet."

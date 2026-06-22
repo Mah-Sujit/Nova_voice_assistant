@@ -44,3 +44,7 @@ print(router.route("create fastapi project"))
 
 print("\n=== DEPLOY CHECK ===")
 print(router.route("deploy check"))
+
+
+print("\n=== AI CHAT ===")
+print(router.route("ask ai explain Python ModuleNotFoundError in simple terms"))

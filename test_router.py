@@ -27,3 +27,7 @@ print(
 
 print("\n=== CODE REVIEW ===")
 print(router.route("review src/nova_voice/main.py"))
+
+
+print("\n=== GIT LOG ===")
+print(router.route("show commits"))

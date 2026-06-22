@@ -9,6 +9,7 @@ from nova_voice.skills.test_runner_skill import TestRunnerSkill
 from nova_voice.skills.debug_skill import DebugSkill
 from nova_voice.skills.terminal_skill import TerminalSkill
 from nova_voice.skills.code_review_skill import CodeReviewSkill
+from nova_voice.skills.deploy_skill import DeploySkill
 
 class IntentRouter:
     def __init__(self):
@@ -18,6 +19,7 @@ class IntentRouter:
         self.debug_skill = DebugSkill()
         self.terminal_skill = TerminalSkill()
         self.code_review_skill = CodeReviewSkill()
+        self.deploy_skill = DeploySkill()
 
     def route(self, command: str):
         command = command.lower()
@@ -39,5 +41,10 @@ class IntentRouter:
         
         elif "review" in command or "check code" in command or "find bugs" in command:
              return self.code_review_skill.handle(command)
+        elif "create" in command and "project" in command:
+            return self.project_skill.handle(command)
         
-        return "Sorry, I don't understand that command yet."
+        elif "deploy" in command:
+            return self.deploy_skill.handle(command)
+           
+            return "Sorry, I don't understand that command yet."

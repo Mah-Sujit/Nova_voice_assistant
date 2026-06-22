@@ -41,3 +41,6 @@ print(router.route("create python project"))
 
 print("\n=== FASTAPI PROJECT ===")
 print(router.route("create fastapi project"))
+
+print("\n=== DEPLOY CHECK ===")
+print(router.route("deploy check"))

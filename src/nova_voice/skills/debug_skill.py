@@ -20,5 +20,8 @@ class DebugSkill:
 
         if "permission denied" in error_text:
             return "The process lacks required permissions."
+        
+        if "syntaxerror" in error_text or "syntax error" in error_text:
+            return "Check brackets, quotes, and indentation."
 
         return f"Unknown error:\n{error_text}"

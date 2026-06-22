@@ -7,7 +7,7 @@ from nova_voice.skills.git_skill import GitSkill
 from nova_voice.skills.project_skill import ProjectSkill
 from nova_voice.skills.test_runner_skill import TestRunnerSkill
 from nova_voice.skills.debug_skill import DebugSkill
-
+from nova_voice.skills.terminal_skill import TerminalSkill
 
 class IntentRouter:
     def __init__(self):
@@ -15,6 +15,7 @@ class IntentRouter:
         self.project_skill = ProjectSkill()
         self.test_skill = TestRunnerSkill()
         self.debug_skill = DebugSkill()
+        self.terminal_skill = TerminalSkill()
 
     def route(self, command: str):
         command = command.lower()
@@ -30,5 +31,8 @@ class IntentRouter:
 
         elif "debug" in command or "error" in command:
             return self.debug_skill.handle(command)
-
+        
+        elif "run command" in command or "terminal" in command or "list files" in command:
+            return self.terminal_skill.handle(command)
+        
         return "Sorry, I don't understand that command yet."

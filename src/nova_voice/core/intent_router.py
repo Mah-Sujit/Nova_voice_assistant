@@ -13,6 +13,7 @@ from nova_voice.skills.deploy_skill import DeploySkill
 from nova_voice.skills.ai_chat_skill import AIChatSkill
 from nova_voice.skills.memory_skill import MemorySkill
 
+
 class IntentRouter:
     def __init__(self):
         self.git_skill = GitSkill()
@@ -26,9 +27,25 @@ class IntentRouter:
         self.memory_skill = MemorySkill()
 
     def route(self, command: str):
-        command = command.lower()
+        command = command.lower().strip()
 
-        if "git" in command or "commit" in command or "push" in command or "status" in command:
+        # AI must be first because prompts may contain words like git/error/status.
+        if command.startswith("ask ai") or command.startswith("ai "):
+            return self.ai_chat_skill.handle(command)
+
+        elif (
+            "memory" in command
+            or "last project" in command
+            or "favorite framework" in command
+        ):
+            return self.memory_skill.handle(command)
+
+        elif (
+            "git" in command
+            or "commit" in command
+            or "push" in command
+            or "status" in command
+        ):
             return self.git_skill.handle(command)
 
         elif "create" in command and "project" in command:
@@ -39,24 +56,22 @@ class IntentRouter:
 
         elif "debug" in command or "error" in command:
             return self.debug_skill.handle(command)
-        
-        elif "run command" in command or "terminal" in command or "list files" in command:
+
+        elif (
+            "run command" in command
+            or "terminal" in command
+            or "list files" in command
+        ):
             return self.terminal_skill.handle(command)
-        
-        elif "review" in command or "check code" in command or "find bugs" in command:
-             return self.code_review_skill.handle(command)
-        elif "create" in command and "project" in command:
-            return self.project_skill.handle(command)
-        
+
+        elif (
+            "review" in command
+            or "check code" in command
+            or "find bugs" in command
+        ):
+            return self.code_review_skill.handle(command)
+
         elif "deploy" in command:
             return self.deploy_skill.handle(command)
-        
-        elif "ask ai" in command or command.startswith("ai "):
-            return self.ai_chat_skill.handle(command)
-        
-        elif (
-    "memory" in command
-    or "last project" in command
-    or "favorite framework" in command
-):return self.memory_skill.handle(command)
+
         return "Sorry, I don't understand that command yet."
